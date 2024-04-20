@@ -6,6 +6,18 @@ window.addEventListener("load", () => {
         repeat: -1,
         speed: .7,
     });
+
+    let video = document.getElementById('video');
+
+    function unmuteVideo() {
+        video.muted = false;
+
+        document.removeEventListener('click', unmuteVideo);
+        document.removeEventListener('touchstart', unmuteVideo);
+    }
+
+    document.addEventListener('click', unmuteVideo);
+    document.addEventListener('touchstart', unmuteVideo);
 });
 
 function horizontalLoop(items, config) {
@@ -59,9 +71,5 @@ function horizontalLoop(items, config) {
     tl.toIndex = (index, vars) => toIndex(index, vars);
     tl.times = times;
     tl.progress(1, true).progress(0, true);
-    if (config.reversed) {
-        tl.vars.onReverseComplete();
-        tl.reverse();
-    }
     return tl;
 }
